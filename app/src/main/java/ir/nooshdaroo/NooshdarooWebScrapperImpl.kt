@@ -16,7 +16,7 @@ import java.net.URL
 
 class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebScrapper {
 
-    override suspend fun extractContentCategoriesWithPath(): List<Pair<String, UrlPath>> {
+    override suspend fun extractContentCategoriesWithPath(): List<Category> {
         return skrape(AsyncFetcher) {
             request {
                 url = nooshdarooUrl.toString()
@@ -30,7 +30,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                             withClass = "c-nav-block__side-menu"
                             findFirst {
                                 eachLink.entries.map { (text, url) ->
-                                    text to UrlPath(url)
+                                    Category(text, URL(nooshdarooUrl.toString().dropLast(1) + url))
                                 }
                             }
                         }
@@ -40,7 +40,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
         }
     }
 
-    override suspend fun extractFeaturedContents(): List<Article> {
+    override suspend fun extractFeaturedContents(): List<Content> {
         return skrape(AsyncFetcher) {
             request {
                 url = nooshdarooUrl.toString()
@@ -51,66 +51,67 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                     div {
                         withClass = "c-featued-block__wrap"
 
-                        val firstArticle = div {
+                        val firstContent = div {
                             withClass = "c-featued-block__main"
 
                             article {
-                                Article(
-                                    imageUrl = a {
-                                        withClass = "image-link"
-                                        img {
-                                            findFirst {
-                                                URL(attribute("src"))
-                                            }
-                                        }
-                                    },
+                                Content(
                                     category = div {
                                         withClass = "image-wrap"
                                         div {
                                             a {
                                                 findFirst {
-                                                    ownText to URL(attribute("href"))
+                                                    Category(ownText, URL(attribute("href")))
                                                 }
                                             }
                                         }
                                     },
-                                    headline = div {
-                                        withClass = "details"
+                                    article = Article(
+                                        imageUrl = a {
+                                            withClass = "image-link"
+                                            img {
+                                                findFirst {
+                                                    URL(attribute("src"))
+                                                }
+                                            }
+                                        },
+                                        description = div {
+                                            withClass = "details"
 
-                                        div {
-                                            withClass = "headline"
+                                            div {
+                                                withClass = "headline"
 
-                                            Headline(
-                                                subhead = div {
-                                                    withClass = "subhead"
+                                                Description(
+                                                    subhead = div {
+                                                        withClass = "subhead"
 
-                                                    findFirst {
-                                                        ownText
-                                                    }
-                                                },
-                                                title = h1 {
-                                                    a {
                                                         findFirst {
                                                             ownText
                                                         }
+                                                    },
+                                                    title = h1 {
+                                                        a {
+                                                            findFirst {
+                                                                ownText
+                                                            }
+                                                        }
                                                     }
-                                                }
-                                            )
-                                        }
-                                    },
-                                    readingTime = null,
-                                    articleUrl = div {
-                                        withClass = "details"
+                                                )
+                                            }
+                                        },
+                                        articleUrl = div {
+                                            withClass = "details"
 
-                                        findFirst("a.read-more-link") {
-                                            URL(attribute("href"))
+                                            findFirst("a.read-more-link") {
+                                                URL(attribute("href"))
+                                            }
                                         }
-                                    }
+                                    )
                                 )
                             }
                         }
 
-                        val remainedArticles = div {
+                        val remainedContents = div {
                             withClass = "c-featued-block__list"
 
                             div {
@@ -119,80 +120,81 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                 article {
                                     findAll {
                                         map {
-                                            Article(
-                                                imageUrl = it.div {
-                                                    withClass = "image-wrap"
-                                                    div {
-                                                        withClass = "image"
-                                                        a {
-                                                            img {
-                                                                withClass = "attachment-large"
-                                                                findFirst {
-                                                                    runCatching {
-                                                                        URL(attribute("src"))
-                                                                    }.recoverCatching {
-                                                                        URL(attribute("data-src"))
-                                                                    }.recoverCatching {
-                                                                        URL(
-                                                                            attribute("data-srcset").split(" ")[0]
-                                                                        )
-                                                                    }.getOrThrow()
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                },
+                                            Content(
                                                 category = it.div {
                                                     withClass = "image-wrap"
                                                     div {
                                                         a {
                                                             findFirst {
-                                                                ownText to URL(attribute("href"))
+                                                                Category(ownText, URL(attribute("href")))
                                                             }
                                                         }
                                                     }
                                                 },
-                                                headline = it.div {
-                                                    withClass = "details"
-
-                                                    div {
-                                                        withClass = "headline"
-
-                                                        Headline(
-                                                            subhead = null,
-                                                            title = h2 {
-                                                                a {
+                                                article = Article(
+                                                    imageUrl = it.div {
+                                                        withClass = "image-wrap"
+                                                        div {
+                                                            withClass = "image"
+                                                            a {
+                                                                img {
+                                                                    withClass = "attachment-large"
                                                                     findFirst {
-                                                                        ownText
+                                                                        runCatching {
+                                                                            URL(attribute("src"))
+                                                                        }.recoverCatching {
+                                                                            URL(attribute("data-src"))
+                                                                        }.recoverCatching {
+                                                                            URL(
+                                                                                attribute("data-srcset").split(" ")[0]
+                                                                            )
+                                                                        }.getOrThrow()
                                                                     }
                                                                 }
                                                             }
-                                                        )
-                                                    }
-                                                },
-                                                readingTime = it.div {
-                                                    withClass = "details"
+                                                        }
+                                                    },
+                                                    description = it.div {
+                                                        withClass = "details"
 
-                                                    time {
-                                                        findFirst {
-                                                            ownText
+                                                        div {
+                                                            withClass = "headline"
+
+                                                            Description(
+                                                                title = h2 {
+                                                                    a {
+                                                                        findFirst {
+                                                                            ownText
+                                                                        }
+                                                                    }
+                                                                }
+                                                            )
+                                                        }
+                                                    },
+                                                    readingTime = it.div {
+                                                        withClass = "details"
+
+                                                        time {
+                                                            findFirst {
+                                                                ownText
+                                                            }
+                                                        }
+                                                    },
+                                                    articleUrl = it.div {
+                                                        withClass = "details"
+
+                                                        findFirst("div.headline h2 a") {
+                                                            URL(attribute("href"))
                                                         }
                                                     }
-                                                },
-                                                articleUrl = it.div {
-                                                    withClass = "details"
-
-                                                    findFirst("div.headline h2 a") {
-                                                        URL(attribute("href"))
-                                                    }
-                                                }
+                                                )
                                             )
                                         }
                                     }
                                 }
                             }
                         }
-                        listOf(firstArticle) + remainedArticles
+                        listOf(firstContent) + remainedContents
                     }
                 }
             }
@@ -274,7 +276,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                         }
                                     }
 
-                                    val (headline, articleUrl) = findSecond {
+                                    val (description, articleUrl) = findSecond {
                                         div {
                                             val (title, articleUrl) = h3 {
                                                 a {
@@ -286,16 +288,14 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                 findFirst { ownText }
                                             }
 
-                                            Pair(Headline(subhead, title), articleUrl)
+                                            Pair(Description(subhead, title), articleUrl)
                                         }
                                     }
 
                                     Article(
-                                        category = null,
                                         imageUrl = imageUrl,
                                         articleUrl = articleUrl,
-                                        headline = headline,
-                                        readingTime = null
+                                        description = description,
                                     )
                                 }
                             }

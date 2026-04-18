@@ -16,6 +16,13 @@ data class Article(
     val articleUrl: URL
 )
 
+data class Video(
+    val description: Description,
+    val videoUrl: URL,
+    val posterUrl: URL,
+    val duration: String?
+)
+
 data class Content(
     val category: Category,
     val article: Article
@@ -32,4 +39,5 @@ interface NooshdarooWebScrapper {
     suspend fun extractFeaturedContents(): List<Content>
     suspend fun extractShortVideos(): List<ShortVideo>
     suspend fun extractLatestContentInDigitalLiteracy(): List<Article>
+    suspend fun extractLatestVideos(): List<Video>
 }

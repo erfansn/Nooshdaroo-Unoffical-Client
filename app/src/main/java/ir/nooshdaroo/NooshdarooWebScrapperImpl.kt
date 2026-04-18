@@ -11,6 +11,7 @@ import it.skrape.selects.html5.h1
 import it.skrape.selects.html5.h2
 import it.skrape.selects.html5.h3
 import it.skrape.selects.html5.img
+import it.skrape.selects.html5.p
 import it.skrape.selects.html5.time
 import java.net.URL
 
@@ -296,6 +297,78 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                         imageUrl = imageUrl,
                                         articleUrl = articleUrl,
                                         description = description,
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun extractLatestVideos(): List<Video> {
+        return skrape(AsyncFetcher) {
+            request {
+                url = nooshdarooUrl.toString()
+                timeout = 5_000
+            }
+            response {
+                htmlDocument {
+                    div {
+                        withClass = "c-videos-block__list-item"
+                        article {
+                            findAll {
+                                map {
+                                    val (duration, posterUrl) = it.div {
+                                        withClass = "image-wrap"
+
+                                        val duration = div {
+                                            findAll {
+                                                find { it.hasClass("tax-label") }?.ownText
+                                            }
+                                        }
+                                        val posterUrl = findFirst("div.image a img") {
+                                            runCatching {
+                                                URL(attribute("src"))
+                                            }.recoverCatching {
+                                                URL(attribute("data-src"))
+                                            }.recoverCatching {
+                                                URL(
+                                                    attribute("data-srcset").split(" ")[0]
+                                                )
+                                            }.getOrThrow()
+                                        }
+                                        duration to posterUrl
+                                    }
+                                    val (videoUrl, description) = it.div {
+                                        withClass = "details"
+
+                                        val (videoUrl, title) = div {
+                                            withClass = "headline"
+                                            h3 {
+                                                a {
+                                                    findFirst {
+                                                        URL(attribute("href")) to ownText
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        val subhead = div {
+                                            withClass = "excerpt"
+                                            p {
+                                                findFirst { ownText }
+                                            }
+                                        }
+
+                                        videoUrl to Description(title, subhead)
+                                    }
+
+                                    Video(
+                                        description = description,
+                                        videoUrl = videoUrl,
+                                        posterUrl = posterUrl,
+                                        duration = duration
                                     )
                                 }
                             }

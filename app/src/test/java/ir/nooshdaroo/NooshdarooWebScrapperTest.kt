@@ -59,4 +59,13 @@ class NooshdarooWebScrapperTest {
             hasSize(9)
         }
     }
+
+    @Test
+    fun mainPage_extractingLatestVideos_returnsCorrectly() = runTest {
+        val latestVideos = nooshdarooWebScrapper.extractLatestVideos()
+
+        assertThat(latestVideos).apply {
+            hasSize(5)
+        }
+    }
 }

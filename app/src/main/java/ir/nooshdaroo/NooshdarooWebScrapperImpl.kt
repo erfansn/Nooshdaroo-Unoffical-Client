@@ -4,6 +4,7 @@ import it.skrape.core.htmlDocument
 import it.skrape.fetcher.AsyncFetcher
 import it.skrape.fetcher.response
 import it.skrape.fetcher.skrape
+import it.skrape.selects.and
 import it.skrape.selects.html5.a
 import it.skrape.selects.html5.article
 import it.skrape.selects.html5.div
@@ -12,6 +13,8 @@ import it.skrape.selects.html5.h2
 import it.skrape.selects.html5.h3
 import it.skrape.selects.html5.img
 import it.skrape.selects.html5.p
+import it.skrape.selects.html5.section
+import it.skrape.selects.html5.style
 import it.skrape.selects.html5.time
 import java.net.URL
 
@@ -370,6 +373,88 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                         posterUrl = posterUrl,
                                         duration = duration
                                     )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun extractLatestContent(): List<Content> {
+        return skrape(AsyncFetcher) {
+            request {
+                url = nooshdarooUrl.toString()
+                timeout = 5_000
+            }
+            response {
+                htmlDocument {
+                    section {
+                        withClass = "c-articles-block"
+                        findAll {
+                            first {
+                                !it.hasClass("is-style-alt")
+                            }.selection("div div.c-articles-block__wrap div") {
+                                div {
+                                    withClass = "c-articles-block__list-item"
+
+                                    article {
+                                        findAll {
+                                            map {
+                                                val (category, imageUrl) = it.div {
+                                                    withClass = "image-wrap"
+
+                                                    val category = findFirst("div.tax-label") {
+                                                        Category(title = ownText)
+                                                    }
+                                                    val imageUrl = findFirst("div.image a img") {
+                                                        runCatching {
+                                                            URL(attribute("src"))
+                                                        }.recoverCatching {
+                                                            URL(attribute("data-src"))
+                                                        }.recoverCatching {
+                                                            URL(
+                                                                attribute("data-srcset").split(" ")[0]
+                                                            )
+                                                        }.getOrThrow()
+                                                    }
+                                                    category to imageUrl
+                                                }
+
+                                                val (articleUrl, description, readingTime) = it.div {
+                                                    withClass = "details"
+
+                                                    val (articleUrl, title) = div {
+                                                        withClass = "headline"
+                                                        h3 {
+                                                            a {
+                                                                findFirst {
+                                                                    URL(attribute("href")) to ownText
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    val readingTime = div {
+                                                        withClass = "reading-time"
+                                                        findFirst { ownText }
+                                                    }
+
+                                                    Triple(articleUrl, Description(title), readingTime)
+                                                }
+
+                                                Content(
+                                                    category = category,
+                                                    article = Article(
+                                                        imageUrl = imageUrl,
+                                                        description = description,
+                                                        readingTime = readingTime,
+                                                        articleUrl = articleUrl
+                                                    )
+                                                )
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }

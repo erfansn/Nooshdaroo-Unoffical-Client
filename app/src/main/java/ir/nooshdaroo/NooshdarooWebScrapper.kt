@@ -2,7 +2,10 @@ package ir.nooshdaroo
 
 import java.net.URL
 
-data class Category(val title: String, val url: URL)
+data class Category(
+    val title: String,
+    val url: URL? = null
+)
 
 data class Description(
     val title: String,
@@ -40,4 +43,5 @@ interface NooshdarooWebScrapper {
     suspend fun extractShortVideos(): List<ShortVideo>
     suspend fun extractLatestContentInDigitalLiteracy(): List<Article>
     suspend fun extractLatestVideos(): List<Video>
+    suspend fun extractLatestContent(): List<Content>
 }

@@ -463,4 +463,26 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
             }
         }
     }
+
+    override suspend fun extractDailyNote(): String {
+        return skrape(AsyncFetcher) {
+            request {
+                url = nooshdarooUrl.toString()
+                timeout = 5_000
+            }
+            response {
+                htmlDocument {
+                    div {
+                        withClass = "today-note"
+
+                        p {
+                            findFirst {
+                                ownText
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

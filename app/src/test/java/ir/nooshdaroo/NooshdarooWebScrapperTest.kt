@@ -77,4 +77,11 @@ class NooshdarooWebScrapperTest {
             hasSize(3)
         }
     }
+
+    @Test
+    fun mainPage_extractingDailyNote_returnsCorrectly() = runTest {
+        val todayNote = nooshdarooWebScrapper.extractDailyNote()
+
+        assertThat(todayNote).isEqualTo("اگر در پیامکی خواندی که حساب بانکی\u200Cات مسدود شده، نخست ببین که اصلاً در آن بانک حساب داری یا نه!")
+    }
 }

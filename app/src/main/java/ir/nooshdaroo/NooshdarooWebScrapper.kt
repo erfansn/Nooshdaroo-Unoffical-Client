@@ -44,4 +44,5 @@ interface NooshdarooWebScrapper {
     suspend fun extractLatestContentInDigitalLiteracy(): List<Article>
     suspend fun extractLatestVideos(): List<Video>
     suspend fun extractLatestContent(): List<Content>
+    suspend fun extractDailyNote(): String
 }

@@ -1,8 +1,15 @@
 package ir.nooshdaroo
 
+import android.util.Patterns
+
 @JvmInline
 value class Url(val address: String) {
-    val path: String
+
+    init {
+        require(address.contains("localhost") || Patterns.WEB_URL.matcher(address).matches()) { "Invalid url address $address" }
+    }
+
+    val path: String?
         get() {
             var count = 3
             var cIndex = 0
@@ -13,7 +20,12 @@ value class Url(val address: String) {
                 }
                 if (count == 0) break
             }
-            return if (count != 0) "" else address.substring(cIndex + 1)
+
+            return if (count != 0 || cIndex == address.lastIndex) {
+                null
+            } else {
+                address.substring(cIndex).substringBeforeLast("#").substringBeforeLast("?")
+            }
         }
 }
 

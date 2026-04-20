@@ -13,6 +13,7 @@ truth = "1.4.5"
 coroutines = "1.8.1"
 androidxTest = "1.7.0"
 cache4k = "0.14.0"
+robolectric = "4.16"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -29,6 +30,7 @@ coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", vers
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTest" }
 androidx-test-core = { module = "androidx.test:core-ktx", version.ref = "androidxTest" }
 cache4k = { module = "io.github.reactivecircus.cache4k:cache4k", version.ref = "cache4k" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

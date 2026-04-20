@@ -42,6 +42,12 @@ android {
             excludes += "DebugProbesKt.bin"
         }
     }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -51,12 +57,14 @@ dependencies {
     implementation(libs.skrapeit)
     implementation(libs.coroutines)
 
+    testImplementation(libs.robolectric)
     testImplementation(libs.junit)
     testImplementation(libs.mockwebserver)
     testImplementation(libs.coroutines.test)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.test.runner)
     testImplementation(libs.truth)
+    testImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

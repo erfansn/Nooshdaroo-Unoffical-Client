@@ -8,7 +8,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class NooshdarooWebScrapperTest {
+class NooshdarooWebScrapperImplTest {
 
     @get:Rule
     val mockWebServer = MockWebServer()

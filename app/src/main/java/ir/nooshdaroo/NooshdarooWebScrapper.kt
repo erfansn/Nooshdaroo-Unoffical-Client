@@ -19,7 +19,7 @@ value class Url(val address: String) {
 
 data class Category(
     val title: String,
-    val url: URL? = null
+    val url: Url? = null
 )
 
 data class Description(
@@ -28,16 +28,16 @@ data class Description(
 )
 
 data class Article(
-    val imageUrl: URL,
+    val imageUrl: Url,
     val description: Description,
     val readingTime: String? = null,
-    val articleUrl: URL
+    val articleUrl: Url
 )
 
 data class Video(
     val description: Description,
-    val videoUrl: URL,
-    val posterUrl: URL,
+    val videoUrl: Url,
+    val posterUrl: Url,
     val duration: String?
 )
 
@@ -48,8 +48,8 @@ data class Content(
 
 data class ShortVideo(
     val duration: String? = null,
-    val posterUrl: URL,
-    val videoUrl: URL
+    val posterUrl: Url,
+    val videoUrl: Url
 )
 
 interface NooshdarooWebScrapper {

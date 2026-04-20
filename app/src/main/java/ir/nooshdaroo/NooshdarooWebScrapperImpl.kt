@@ -35,7 +35,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                             withClass = "c-nav-block__side-menu"
                             findFirst {
                                 eachLink.entries.map { (text, url) ->
-                                    Category(text, URL(nooshdarooUrl.toString().dropLast(1) + url))
+                                    Category(text, Url(nooshdarooUrl.toString().dropLast(1) + url))
                                 }
                             }
                         }
@@ -66,7 +66,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                         div {
                                             a {
                                                 findFirst {
-                                                    Category(ownText, URL(attribute("href")))
+                                                    Category(ownText, Url(attribute("href")))
                                                 }
                                             }
                                         }
@@ -76,7 +76,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                             withClass = "image-link"
                                             img {
                                                 findFirst {
-                                                    URL(attribute("src"))
+                                                    Url(attribute("src"))
                                                 }
                                             }
                                         },
@@ -108,7 +108,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                             withClass = "details"
 
                                             findFirst("a.read-more-link") {
-                                                URL(attribute("href"))
+                                                Url(attribute("href"))
                                             }
                                         }
                                     )
@@ -131,7 +131,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                     div {
                                                         a {
                                                             findFirst {
-                                                                Category(ownText, URL(attribute("href")))
+                                                                Category(ownText, Url(attribute("href")))
                                                             }
                                                         }
                                                     }
@@ -146,11 +146,11 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                                     withClass = "attachment-large"
                                                                     findFirst {
                                                                         runCatching {
-                                                                            URL(attribute("src"))
+                                                                            Url(attribute("src"))
                                                                         }.recoverCatching {
-                                                                            URL(attribute("data-src"))
+                                                                            Url(attribute("data-src"))
                                                                         }.recoverCatching {
-                                                                            URL(
+                                                                            Url(
                                                                                 attribute("data-srcset").split(" ")[0]
                                                                             )
                                                                         }.getOrThrow()
@@ -189,7 +189,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                         withClass = "details"
 
                                                         findFirst("div.headline h2 a") {
-                                                            URL(attribute("href"))
+                                                            Url(attribute("href"))
                                                         }
                                                     }
                                                 )
@@ -222,7 +222,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                 it.article {
                                     a {
                                         val (videoUrl, posterUrl) = findFirst {
-                                            URL(attribute("data-video-url")) to URL(attribute("data-video-poster"))
+                                            Url(attribute("data-video-url")) to Url(attribute("data-video-poster"))
                                         }
 
                                         val duration = div {
@@ -268,11 +268,11 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                             img {
                                                 findFirst {
                                                     runCatching {
-                                                        URL(attribute("src"))
+                                                        Url(attribute("src"))
                                                     }.recoverCatching {
-                                                        URL(attribute("data-src"))
+                                                        Url(attribute("data-src"))
                                                     }.recoverCatching {
-                                                        URL(
+                                                        Url(
                                                             attribute("data-srcset").split(" ")[0]
                                                         )
                                                     }.getOrThrow()
@@ -285,7 +285,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                         div {
                                             val (title, articleUrl) = h3 {
                                                 a {
-                                                    findFirst { ownText to URL(attribute("href")) }
+                                                    findFirst { ownText to Url(attribute("href")) }
                                                 }
                                             }
                                             val subhead = div {
@@ -334,11 +334,11 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                         }
                                         val posterUrl = findFirst("div.image a img") {
                                             runCatching {
-                                                URL(attribute("src"))
+                                                Url(attribute("src"))
                                             }.recoverCatching {
-                                                URL(attribute("data-src"))
+                                                Url(attribute("data-src"))
                                             }.recoverCatching {
-                                                URL(
+                                                Url(
                                                     attribute("data-srcset").split(" ")[0]
                                                 )
                                             }.getOrThrow()
@@ -353,7 +353,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                             h3 {
                                                 a {
                                                     findFirst {
-                                                        URL(attribute("href")) to ownText
+                                                        Url(attribute("href")) to ownText
                                                     }
                                                 }
                                             }
@@ -411,11 +411,11 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                     }
                                                     val imageUrl = findFirst("div.image a img") {
                                                         runCatching {
-                                                            URL(attribute("src"))
+                                                            Url(attribute("src"))
                                                         }.recoverCatching {
-                                                            URL(attribute("data-src"))
+                                                            Url(attribute("data-src"))
                                                         }.recoverCatching {
-                                                            URL(
+                                                            Url(
                                                                 attribute("data-srcset").split(" ")[0]
                                                             )
                                                         }.getOrThrow()
@@ -431,7 +431,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                         h3 {
                                                             a {
                                                                 findFirst {
-                                                                    URL(attribute("href")) to ownText
+                                                                    Url(attribute("href")) to ownText
                                                                 }
                                                             }
                                                         }
@@ -511,11 +511,11 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
 
                                                     findFirst("div a img") {
                                                         runCatching {
-                                                            URL(attribute("src"))
+                                                            Url(attribute("src"))
                                                         }.recoverCatching {
-                                                            URL(attribute("data-src"))
+                                                            Url(attribute("data-src"))
                                                         }.recoverCatching {
-                                                            URL(
+                                                            Url(
                                                                 attribute("data-srcset").split(" ")[0]
                                                             )
                                                         }.getOrThrow()
@@ -530,7 +530,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                         h3 {
                                                             a {
                                                                 findFirst {
-                                                                    URL(attribute("href")) to ownText
+                                                                    Url(attribute("href")) to ownText
                                                                 }
                                                             }
                                                         }
@@ -592,11 +592,11 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                     }
                                                     val imageUrl = findFirst("div.image a img") {
                                                         runCatching {
-                                                            URL(attribute("src"))
+                                                            Url(attribute("src"))
                                                         }.recoverCatching {
-                                                            URL(attribute("data-src"))
+                                                            Url(attribute("data-src"))
                                                         }.recoverCatching {
-                                                            URL(
+                                                            Url(
                                                                 attribute("data-srcset").split(" ")[0]
                                                             )
                                                         }.getOrThrow()
@@ -612,7 +612,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                         h3 {
                                                             a {
                                                                 findFirst {
-                                                                    URL(attribute("href")) to ownText
+                                                                    Url(attribute("href")) to ownText
                                                                 }
                                                             }
                                                         }
@@ -670,11 +670,11 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                         withClass = "image-wrap"
                                                         findFirst("div img") {
                                                             runCatching {
-                                                                URL(attribute("src"))
+                                                                Url(attribute("src"))
                                                             }.recoverCatching {
-                                                                URL(attribute("data-src"))
+                                                                Url(attribute("data-src"))
                                                             }.recoverCatching {
-                                                                URL(
+                                                                Url(
                                                                     attribute("data-srcset").split(" ")[0]
                                                                 )
                                                             }.getOrThrow()
@@ -694,7 +694,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                         Description(title)
                                                     }
 
-                                                    val articleUrl = URL(it.attribute("href"))
+                                                    val articleUrl = Url(it.attribute("href"))
 
                                                     Article(
                                                         imageUrl = imageUrl,

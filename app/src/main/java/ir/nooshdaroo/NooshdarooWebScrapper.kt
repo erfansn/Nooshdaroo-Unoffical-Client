@@ -1,6 +1,21 @@
 package ir.nooshdaroo
 
-import java.net.URL
+@JvmInline
+value class Url(val address: String) {
+    val path: String
+        get() {
+            var count = 3
+            var cIndex = 0
+            for ((index, ch) in address.withIndex()) {
+                if (ch == '/') {
+                    cIndex = index
+                    count--
+                }
+                if (count == 0) break
+            }
+            return if (count != 0) "" else address.substring(cIndex + 1)
+        }
+}
 
 data class Category(
     val title: String,

@@ -10,7 +10,7 @@ class UrlTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun throw_exception_when_passed_address_is_invalid() {
-        Url("http://localhost")
+        Url("http:/")
     }
 
     @Test
@@ -21,7 +21,7 @@ class UrlTest {
     }
 
     @Test
-    fun returns_empty_as_path_when_no_path_in_passed_url() {
+    fun returns_null_as_path_when_no_path_in_passed_url() {
         val url = Url("http://host.com/")
         val url2 = Url("http://host.com")
         val url3 = Url("http://host.com?param=value")

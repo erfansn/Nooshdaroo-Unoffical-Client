@@ -6,7 +6,7 @@ import android.util.Patterns
 value class Url(val address: String) {
 
     init {
-        require(address.contains("localhost") || Patterns.WEB_URL.matcher(address).matches()) { "Invalid url address $address" }
+        require(address.startsWith("http://localhost") || Patterns.WEB_URL.matcher(address).matches()) { "Invalid url address $address" }
     }
 
     val path: String?

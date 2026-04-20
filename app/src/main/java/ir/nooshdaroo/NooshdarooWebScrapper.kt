@@ -45,4 +45,5 @@ interface NooshdarooWebScrapper {
     suspend fun extractLatestVideos(): List<Video>
     suspend fun extractLatestContent(): List<Content>
     suspend fun extractDailyNote(): String
+    suspend fun extractLatestInParentalControl(): List<Article>
 }

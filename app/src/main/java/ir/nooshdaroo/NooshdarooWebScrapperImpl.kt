@@ -485,4 +485,81 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
             }
         }
     }
+
+    override suspend fun extractLatestInParentalControl(): List<Article> {
+        return skrape(AsyncFetcher) {
+            request {
+                url = nooshdarooUrl.toString()
+                timeout = 5_000
+            }
+            response {
+                htmlDocument {
+                    section {
+                        withClass = "c-articles-alt-block"
+                        findAll {
+                            first {
+                                !it.hasClass("is-style-alt")
+                            }.selection("div div.c-articles-alt-block__wrap div") {
+                                div {
+                                    withClass = "c-articles-alt-block__list-item"
+                                    article {
+                                        findAll {
+                                            map {
+                                                val imageUrl = it.div {
+                                                    withClass = "image-wrap"
+
+                                                    findFirst("div a img") {
+                                                        runCatching {
+                                                            URL(attribute("src"))
+                                                        }.recoverCatching {
+                                                            URL(attribute("data-src"))
+                                                        }.recoverCatching {
+                                                            URL(
+                                                                attribute("data-srcset").split(" ")[0]
+                                                            )
+                                                        }.getOrThrow()
+                                                    }
+                                                }
+
+                                                val (articleUrl, description, readingTime) = it.div {
+                                                    withClass = "details"
+
+                                                    val (articleUrl, title) = div {
+                                                        withClass = "headline"
+                                                        h3 {
+                                                            a {
+                                                                findFirst {
+                                                                    URL(attribute("href")) to ownText
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    val readingTime = div {
+                                                        withClass = "reading-time"
+                                                        findFirst { ownText }
+                                                    }
+                                                    Triple(
+                                                        articleUrl,
+                                                        Description(title),
+                                                        readingTime
+                                                    )
+                                                }
+
+                                                Article(
+                                                    imageUrl = imageUrl,
+                                                    description = description,
+                                                    readingTime = readingTime,
+                                                    articleUrl = articleUrl
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

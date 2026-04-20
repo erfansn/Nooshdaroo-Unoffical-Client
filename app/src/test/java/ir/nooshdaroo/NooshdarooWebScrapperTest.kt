@@ -84,4 +84,13 @@ class NooshdarooWebScrapperTest {
 
         assertThat(todayNote).isEqualTo("اگر در پیامکی خواندی که حساب بانکی\u200Cات مسدود شده، نخست ببین که اصلاً در آن بانک حساب داری یا نه!")
     }
+
+    @Test
+    fun mainPage_extractingLatestInParentalControl_returnsCorrectly() = runTest {
+        val parentalControl = nooshdarooWebScrapper.extractLatestInParentalControl()
+
+        assertThat(parentalControl).apply {
+            hasSize(4)
+        }
+    }
 }

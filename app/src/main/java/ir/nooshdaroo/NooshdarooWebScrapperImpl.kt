@@ -5,6 +5,7 @@ import it.skrape.fetcher.AsyncFetcher
 import it.skrape.fetcher.response
 import it.skrape.fetcher.skrape
 import it.skrape.selects.and
+import it.skrape.selects.attribute
 import it.skrape.selects.html5.a
 import it.skrape.selects.html5.article
 import it.skrape.selects.html5.div
@@ -551,6 +552,156 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                     readingTime = readingTime,
                                                     articleUrl = articleUrl
                                                 )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun extractPopularContents(): List<Content> {
+        return skrape(AsyncFetcher) {
+            request {
+                url = nooshdarooUrl.toString()
+                timeout = 5_000
+            }
+            response {
+                htmlDocument {
+                    section {
+                        withClass = "c-articles-block"
+                        findAll {
+                            first {
+                                it.hasClass("is-style-alt")
+                            }.selection("div div.c-articles-block__wrap div") {
+                                div {
+                                    withClass = "c-articles-block__list-item"
+
+                                    article {
+                                        findAll {
+                                            map {
+                                                val (category, imageUrl) = it.div {
+                                                    withClass = "image-wrap"
+
+                                                    val category = findFirst("div.tax-label") {
+                                                        Category(title = ownText)
+                                                    }
+                                                    val imageUrl = findFirst("div.image a img") {
+                                                        runCatching {
+                                                            URL(attribute("src"))
+                                                        }.recoverCatching {
+                                                            URL(attribute("data-src"))
+                                                        }.recoverCatching {
+                                                            URL(
+                                                                attribute("data-srcset").split(" ")[0]
+                                                            )
+                                                        }.getOrThrow()
+                                                    }
+                                                    category to imageUrl
+                                                }
+
+                                                val (articleUrl, description, readingTime) = it.div {
+                                                    withClass = "details"
+
+                                                    val (articleUrl, title) = div {
+                                                        withClass = "headline"
+                                                        h3 {
+                                                            a {
+                                                                findFirst {
+                                                                    URL(attribute("href")) to ownText
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    val readingTime = div {
+                                                        withClass = "reading-time"
+                                                        findFirst { ownText }
+                                                    }
+
+                                                    Triple(articleUrl, Description(title), readingTime)
+                                                }
+
+                                                Content(
+                                                    category = category,
+                                                    article = Article(
+                                                        imageUrl = imageUrl,
+                                                        description = description,
+                                                        readingTime = readingTime,
+                                                        articleUrl = articleUrl
+                                                    )
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun extractShouldKnowInEmergencyStateArticles(): List<Article> {
+        return skrape(AsyncFetcher) {
+            request {
+                url = nooshdarooUrl.toString()
+                timeout = 5_000
+            }
+            response {
+                htmlDocument {
+                    section {
+                        withClass = "c-articles-alt-block"
+                        findAll {
+                            first {
+                                it.hasClass("is-style-alt")
+                            }.selection("div div.c-articles-alt-block__wrap div") {
+                                div {
+                                    withClass = "c-articles-alt-block__list-item"
+                                    article {
+                                        a {
+                                            findAll {
+                                                map {
+                                                    val imageUrl = it.div {
+                                                        withClass = "image-wrap"
+                                                        findFirst("div img") {
+                                                            runCatching {
+                                                                URL(attribute("src"))
+                                                            }.recoverCatching {
+                                                                URL(attribute("data-src"))
+                                                            }.recoverCatching {
+                                                                URL(
+                                                                    attribute("data-srcset").split(" ")[0]
+                                                                )
+                                                            }.getOrThrow()
+                                                        }
+                                                    }
+
+                                                    val description = it.div {
+                                                        withClass = "details"
+
+                                                        val title = div {
+                                                            h3 {
+                                                                findFirst {
+                                                                    ownText
+                                                                }
+                                                            }
+                                                        }
+                                                        Description(title)
+                                                    }
+
+                                                    val articleUrl = URL(it.attribute("href"))
+
+                                                    Article(
+                                                        imageUrl = imageUrl,
+                                                        description = description,
+                                                        articleUrl = articleUrl
+                                                    )
+                                                }
                                             }
                                         }
                                     }

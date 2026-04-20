@@ -93,4 +93,22 @@ class NooshdarooWebScrapperImplTest {
             hasSize(4)
         }
     }
+
+    @Test
+    fun mainPage_extractingPopularContents_returnsCorrectly() = runTest {
+        val popularContents = nooshdarooWebScrapper.extractPopularContents()
+
+        assertThat(popularContents).apply {
+            hasSize(5)
+        }
+    }
+
+    @Test
+    fun mainPage_extractingShouldKnowInEmergencyStateArticles_returnsCorrectly() = runTest {
+        val articles = nooshdarooWebScrapper.extractShouldKnowInEmergencyStateArticles()
+
+        assertThat(articles).apply {
+            hasSize(4)
+        }
+    }
 }

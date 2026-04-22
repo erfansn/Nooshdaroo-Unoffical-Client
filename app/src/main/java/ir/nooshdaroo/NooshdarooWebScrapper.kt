@@ -1,39 +1,10 @@
 package ir.nooshdaroo
 
-data class Category(
-    val title: String,
-    val url: Url? = null
-)
-
-data class Description(
-    val title: String,
-    val subhead: String? = null
-)
-
-data class Article(
-    val imageUrl: Url,
-    val description: Description,
-    val readingTime: String? = null,
-    val articleUrl: Url
-)
-
-data class Video(
-    val description: Description,
-    val videoUrl: Url,
-    val posterUrl: Url,
-    val duration: String?
-)
-
-data class Content(
-    val category: Category,
-    val article: Article
-)
-
-data class ShortVideo(
-    val duration: String? = null,
-    val posterUrl: Url,
-    val videoUrl: Url
-)
+import ir.nooshdaroo.model.Article
+import ir.nooshdaroo.model.Category
+import ir.nooshdaroo.model.Content
+import ir.nooshdaroo.model.ShortVideo
+import ir.nooshdaroo.model.Video
 
 interface NooshdarooWebScrapper {
     suspend fun extractContentCategoriesWithPath(): List<Category>

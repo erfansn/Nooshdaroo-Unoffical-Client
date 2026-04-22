@@ -1,11 +1,15 @@
 package ir.nooshdaroo
 
+import ir.nooshdaroo.model.Article
+import ir.nooshdaroo.model.Category
+import ir.nooshdaroo.model.Content
+import ir.nooshdaroo.model.Description
+import ir.nooshdaroo.model.ShortVideo
+import ir.nooshdaroo.model.Video
 import it.skrape.core.htmlDocument
 import it.skrape.fetcher.AsyncFetcher
 import it.skrape.fetcher.response
 import it.skrape.fetcher.skrape
-import it.skrape.selects.and
-import it.skrape.selects.attribute
 import it.skrape.selects.html5.a
 import it.skrape.selects.html5.article
 import it.skrape.selects.html5.div
@@ -15,7 +19,6 @@ import it.skrape.selects.html5.h3
 import it.skrape.selects.html5.img
 import it.skrape.selects.html5.p
 import it.skrape.selects.html5.section
-import it.skrape.selects.html5.style
 import it.skrape.selects.html5.time
 import java.net.URL
 
@@ -131,7 +134,10 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                     div {
                                                         a {
                                                             findFirst {
-                                                                Category(ownText, Url(attribute("href")))
+                                                                Category(
+                                                                    ownText,
+                                                                    Url(attribute("href"))
+                                                                )
                                                             }
                                                         }
                                                     }
@@ -151,7 +157,9 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                                             Url(attribute("data-src"))
                                                                         }.recoverCatching {
                                                                             Url(
-                                                                                attribute("data-srcset").split(" ")[0]
+                                                                                attribute("data-srcset").split(
+                                                                                    " "
+                                                                                )[0]
                                                                             )
                                                                         }.getOrThrow()
                                                                     }
@@ -441,7 +449,8 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                         findFirst { ownText }
                                                     }
 
-                                                    Triple(articleUrl, Description(title), readingTime)
+                                                    Triple(articleUrl,
+                                                        Description(title), readingTime)
                                                 }
 
                                                 Content(
@@ -622,7 +631,8 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                         findFirst { ownText }
                                                     }
 
-                                                    Triple(articleUrl, Description(title), readingTime)
+                                                    Triple(articleUrl,
+                                                        Description(title), readingTime)
                                                 }
 
                                                 Content(

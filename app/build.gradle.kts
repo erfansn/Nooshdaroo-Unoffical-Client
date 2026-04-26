@@ -74,6 +74,7 @@ dependencies {
 
     implementation(libs.skrapeit)
     implementation(libs.coroutines)
+    implementation(libs.coil)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.tooling.preview)

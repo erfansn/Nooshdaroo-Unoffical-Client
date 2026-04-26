@@ -1,4 +1,4 @@
-package ir.nooshdaroo.model
+package ir.nooshdaroo.data.model
 
 data class Content(
     val category: Category,

@@ -2,12 +2,14 @@ package ir.nooshdaroo
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
-import ir.nooshdaroo.model.Article
-import ir.nooshdaroo.model.Category
-import ir.nooshdaroo.model.Content
-import ir.nooshdaroo.model.Description
-import ir.nooshdaroo.model.ShortVideo
-import ir.nooshdaroo.model.Video
+import ir.nooshdaroo.data.NooshdarooWebScrapper
+import ir.nooshdaroo.data.NooshdarooWebScrapperImpl
+import ir.nooshdaroo.data.model.Article
+import ir.nooshdaroo.data.model.Category
+import ir.nooshdaroo.data.model.Content
+import ir.nooshdaroo.data.model.Description
+import ir.nooshdaroo.data.model.ShortVideo
+import ir.nooshdaroo.data.model.Video
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

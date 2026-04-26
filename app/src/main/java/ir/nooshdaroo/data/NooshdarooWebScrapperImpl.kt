@@ -1,11 +1,12 @@
-package ir.nooshdaroo
+package ir.nooshdaroo.data
 
-import ir.nooshdaroo.model.Article
-import ir.nooshdaroo.model.Category
-import ir.nooshdaroo.model.Content
-import ir.nooshdaroo.model.Description
-import ir.nooshdaroo.model.ShortVideo
-import ir.nooshdaroo.model.Video
+import ir.nooshdaroo.Url
+import ir.nooshdaroo.data.model.Article
+import ir.nooshdaroo.data.model.Category
+import ir.nooshdaroo.data.model.Content
+import ir.nooshdaroo.data.model.Description
+import ir.nooshdaroo.data.model.ShortVideo
+import ir.nooshdaroo.data.model.Video
 import it.skrape.core.htmlDocument
 import it.skrape.fetcher.AsyncFetcher
 import it.skrape.fetcher.response

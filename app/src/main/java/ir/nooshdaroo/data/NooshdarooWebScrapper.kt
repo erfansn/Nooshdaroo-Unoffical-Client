@@ -1,10 +1,10 @@
-package ir.nooshdaroo
+package ir.nooshdaroo.data
 
-import ir.nooshdaroo.model.Article
-import ir.nooshdaroo.model.Category
-import ir.nooshdaroo.model.Content
-import ir.nooshdaroo.model.ShortVideo
-import ir.nooshdaroo.model.Video
+import ir.nooshdaroo.data.model.Article
+import ir.nooshdaroo.data.model.Category
+import ir.nooshdaroo.data.model.Content
+import ir.nooshdaroo.data.model.ShortVideo
+import ir.nooshdaroo.data.model.Video
 
 interface NooshdarooWebScrapper {
     suspend fun extractContentCategoriesWithPath(): List<Category>

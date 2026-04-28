@@ -1,41 +1,57 @@
 package ir.nooshdaroo.ui
 
-import android.content.res.Configuration
-import android.content.res.Resources
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
-import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.platform.LocalResources
-import androidx.compose.ui.platform.LocalViewConfiguration
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.ExperimentalTextApi
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontVariation.Settings
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.core.app.LocaleManagerCompat
-import androidx.core.content.ContextCompat
 import ir.nooshdaroo.R
-import org.jetbrains.annotations.TestOnly
-import java.util.Locale
 
 private val LightColorScheme = lightColorScheme()
 
-private val Typography = Typography()
+@OptIn(ExperimentalTextApi::class)
+private val doranFontFamily = FontFamily(
+    Font(R.font.doran_vf, FontWeight.Normal, variationSettings = Settings(FontWeight.Normal, FontStyle.Normal)),
+    Font(R.font.doran_vf, FontWeight.SemiBold, variationSettings = Settings(FontWeight.SemiBold, FontStyle.Normal)),
+    Font(R.font.doran_vf, FontWeight.Black, variationSettings = Settings(FontWeight.Black, FontStyle.Normal)),
+    Font(R.font.doran_vf, FontWeight.Bold, variationSettings = Settings(FontWeight.Bold, FontStyle.Normal)),
+    Font(R.font.doran_vf, FontWeight.Medium, variationSettings = Settings(FontWeight.Medium, FontStyle.Normal)),
+    Font(R.font.doran_vf, FontWeight.Thin, variationSettings = Settings(FontWeight.Thin, FontStyle.Normal)),
+    Font(R.font.doran_vf, FontWeight.Light, variationSettings = Settings(FontWeight.Light, FontStyle.Normal)),
+    Font(R.font.doran_vf, FontWeight.ExtraBold, variationSettings = Settings(FontWeight.ExtraBold, FontStyle.Normal)),
+    Font(R.font.doran_vf, FontWeight.ExtraLight, variationSettings = Settings(FontWeight.ExtraLight, FontStyle.Normal)),
+)
+
+private val Typography = with(Typography()) {
+    Typography(
+        displayLarge = displayLarge.copy(fontFamily = doranFontFamily),
+        displayMedium = displayMedium.copy(fontFamily = doranFontFamily),
+        displaySmall = displaySmall.copy(fontFamily = doranFontFamily),
+        headlineLarge = headlineLarge.copy(fontFamily = doranFontFamily),
+        headlineMedium = headlineMedium.copy(fontFamily = doranFontFamily),
+        headlineSmall = headlineSmall.copy(fontFamily = doranFontFamily),
+        titleLarge = titleLarge.copy(fontFamily = doranFontFamily),
+        titleMedium = titleMedium.copy(fontFamily = doranFontFamily),
+        titleSmall = titleSmall.copy(fontFamily = doranFontFamily),
+        bodyLarge = bodyLarge.copy(fontFamily = doranFontFamily),
+        bodyMedium = bodyMedium.copy(fontFamily = doranFontFamily),
+        bodySmall = bodySmall.copy(fontFamily = doranFontFamily),
+        labelLarge = labelLarge.copy(fontFamily = doranFontFamily),
+        labelMedium = labelMedium.copy(fontFamily = doranFontFamily),
+        labelSmall = labelSmall.copy(fontFamily = doranFontFamily),
+    )
+}
 
 private val appShape = RoundedCornerShape(0)
 

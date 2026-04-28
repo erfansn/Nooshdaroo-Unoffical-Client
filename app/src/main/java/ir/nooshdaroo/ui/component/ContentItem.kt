@@ -27,6 +27,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import ir.nooshdaroo.Url
 import ir.nooshdaroo.ui.NooshdarooTheme
+import ir.nooshdaroo.ui.PreviewNooshdarooTheme
 
 @Composable
 fun ContentItem(
@@ -77,7 +78,7 @@ fun ContentItem(
 @Preview
 @Composable
 private fun ContentItemPreview() {
-    NooshdarooTheme {
+    PreviewNooshdarooTheme {
         ContentItem(
             categoryTitle = "خبر و تحلیل",
             imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69e7b81ef3b25.webp"),

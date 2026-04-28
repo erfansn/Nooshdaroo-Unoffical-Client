@@ -65,12 +65,17 @@ private val Shapes = Shapes(
 
 @Composable
 fun NooshdarooTheme(content: @Composable () -> Unit) {
+    MaterialTheme(
+        content = content,
+        typography = Typography,
+        shapes = Shapes,
+        colorScheme = LightColorScheme
+    )
+}
+
+@Composable
+fun PreviewNooshdarooTheme(content: @Composable () -> Unit) {
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        MaterialTheme(
-            content = content,
-            typography = Typography,
-            shapes = Shapes,
-            colorScheme = LightColorScheme
-        )
+        NooshdarooTheme(content)
     }
 }

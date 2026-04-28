@@ -32,6 +32,7 @@ import coil.request.ImageRequest
 import ir.nooshdaroo.R
 import ir.nooshdaroo.Url
 import ir.nooshdaroo.ui.NooshdarooTheme
+import ir.nooshdaroo.ui.PreviewNooshdarooTheme
 
 @Composable
 fun FeaturedTopContentItem(
@@ -100,7 +101,7 @@ fun FeaturedTopContentItem(
 @Preview
 @Composable
 private fun FeaturedTopContentItemPreview() {
-    NooshdarooTheme {
+    PreviewNooshdarooTheme {
         FeaturedTopContentItem(
             categoryTitle = "خبر و تحلیل",
             imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69e7b81ef3b25.webp"),

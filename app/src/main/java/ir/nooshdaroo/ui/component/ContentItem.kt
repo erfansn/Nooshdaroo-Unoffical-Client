@@ -3,11 +3,18 @@ package ir.nooshdaroo.ui.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,66 +33,180 @@ import androidx.core.graphics.drawable.toDrawable
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import ir.nooshdaroo.Url
-import ir.nooshdaroo.ui.NooshdarooTheme
 import ir.nooshdaroo.ui.PreviewNooshdarooTheme
+
+data class ContentImage(val url: Url, val aspectRatio: Float = 2/1f)
 
 @Composable
 fun ContentItem(
-    categoryTitle: String,
-    imageUrl: Url,
-    title: String,
-    readingTime: String,
+    image: ContentImage,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    imageLabelContent: @Composable BoxScope.() -> Unit = { },
+    descriptionContent: @Composable ColumnScope.() -> Unit = { }
 ) {
-    Column(
-        modifier = modifier
-            .clickable(onClick = onClick)
-    ) {
+    Column(modifier = modifier.clickable(onClick = onClick)) {
         Box {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .placeholder(Color.DarkGray.toArgb().toDrawable())
-                    .data(imageUrl.address)
+                    .data(image.url.address)
                     .crossfade(true)
                     .build(),
                 contentScale = ContentScale.Crop,
                 contentDescription = null,
-                modifier = Modifier.aspectRatio(2 / 1f)
+                modifier = Modifier.aspectRatio(image.aspectRatio)
             )
-            Text(
-                text = categoryTitle,
-                color = MaterialTheme.colorScheme.onTertiary,
-                modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .background(MaterialTheme.colorScheme.tertiary)
-                    .padding(4.dp),
-            )
+            imageLabelContent()
         }
-        Spacer(Modifier.height(8.dp))
-        Text(
-            text = title,
-            overflow = TextOverflow.Ellipsis,
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.weight(1f)
+        descriptionContent()
+    }
+}
+
+@Composable
+fun CategoryText(
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        color = MaterialTheme.colorScheme.onTertiary,
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.tertiary)
+            .padding(4.dp),
+    )
+}
+
+@Preview
+@Composable
+private fun ContentItemPreview_0() {
+    PreviewNooshdarooTheme {
+        ContentItem(
+            image = ContentImage(Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69e7b81ef3b25.webp")),
+            onClick = { },
+            imageLabelContent = {
+                CategoryText("خبر و تحلیل", modifier = Modifier.align(Alignment.TopStart))
+            },
+            descriptionContent = {
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = "راهنمای کاربردی انتقال ارز دیجیتال با حداقل دسترسی به اینترنت",
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.weight(1f)
+                )
+                HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
+                Text(text = "زمان مطالعه ۴ دقیقه")
+            },
+            modifier = Modifier.height(IntrinsicSize.Min)
         )
-        HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
-        Text(text = readingTime)
     }
 }
 
 @Preview
 @Composable
-private fun ContentItemPreview() {
+private fun ContentItemPreview_1() {
     PreviewNooshdarooTheme {
         ContentItem(
-            categoryTitle = "خبر و تحلیل",
-            imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69e7b81ef3b25.webp"),
-            title = "زنگ خطر برای کاربران ایرانی: تبدیل خودکار توکن DAI به USDS در صرافی\u200Cها آغاز شد",
-            readingTime = "زمان مطالعه ۴ دقیقه",
+            image = ContentImage(Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69e7b81ef3b25.webp")),
             onClick = { },
-            modifier = Modifier.height(350.dp)
+            descriptionContent = {
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = "چرا نباید کنار موبایل خود بخوابید؟ + ۴ راهکار برای ترک این عادت مضر",
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(text = "پشت\u200C پرده\u200Cی یک امپراتوری جهانی")
+            },
+            modifier = Modifier.height(IntrinsicSize.Min)
         )
     }
 }
+
+@Preview
+@Composable
+private fun ContentItemPreview_2() {
+    PreviewNooshdarooTheme {
+        ContentItem(
+            image = ContentImage(Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69e7b81ef3b25.webp")),
+            onClick = { },
+            descriptionContent = {
+                Column(modifier = Modifier.padding(8.dp)) {
+                    Text(
+                        text = "چرا نباید کنار موبایل خود بخوابید؟ + ۴ راهکار برای ترک این عادت مضر",
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.weight(1f)
+                    )
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                    Text(text = "زمان مطالعه ۵ دقیقه")
+                }
+            },
+            modifier = Modifier.height(IntrinsicSize.Min)
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ContentItemPreview_3() {
+    PreviewNooshdarooTheme {
+        ContentItem(
+            image = ContentImage(Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69e7b81ef3b25.webp")),
+            onClick = { },
+            imageLabelContent = {
+                CategoryText("بحران و شرایط اضطراری", modifier = Modifier.align(Alignment.TopEnd))
+            },
+            descriptionContent = {
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = "چرا نباید کنار موبایل خود بخوابید؟ + ۴ راهکار برای ترک این عادت مضر",
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    minLines = 2,
+                    maxLines = 2
+                )
+                Text(
+                    text = "وقتی شرایط بحرانی است و برق برای مدتی طولانی قطع می\u200Cشود، فریزر کارایی\u200C\u200Cاش را از دست می\u200Cدهد و مرغ و گوشت شما به سرعت فاسد می\u200Cشود…",
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 3,
+                    minLines = 3
+                )
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                Text(text = "زمان مطالعه ۵ دقیقه")
+            }
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ContentItemPreview_4() {
+    PreviewNooshdarooTheme {
+        ContentItem(
+            image = ContentImage(
+                Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69e7b81ef3b25.webp"),
+                aspectRatio = 3/2f
+            ),
+            onClick = { },
+            imageLabelContent = {
+                Text(
+                    "راهنمای کاربردی انتقال ارز دیجیتال با حداقل دسترسی به اینترنت",
+                    color = Color.White,
+                    modifier = Modifier
+                        .background(Color.Black.copy(alpha = 0.4f))
+                        .fillMaxSize()
+                        .padding(8.dp)
+                )
+            },
+            modifier = Modifier.height(IntrinsicSize.Min)
+        )
+    }
+}
+

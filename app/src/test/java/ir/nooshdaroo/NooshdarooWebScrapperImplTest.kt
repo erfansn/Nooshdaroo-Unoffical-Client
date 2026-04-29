@@ -116,10 +116,7 @@ class NooshdarooWebScrapperImplTest {
 
             containsExactly(
                 Content(
-                    Category(
-                        title = "خبر و تحلیل",
-                        url = Url("https://nooshdaroo.ir/news-opinion/")
-                    ),
+                    "خبر و تحلیل",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69da04ce3c3ec.webp"),
                         description = Description(
@@ -130,10 +127,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "خبر و تحلیل",
-                        url = Url("https://nooshdaroo.ir/news-opinion/")
-                    ),
+                    "خبر و تحلیل",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69da12866fd3b-1024x576.webp"),
                         description = Description(
@@ -144,10 +138,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "راهنماهای قانونی",
-                        url = Url("https://nooshdaroo.ir/legal-guides/")
-                    ),
+                    "راهنماهای قانونی",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d96ff009fad-1024x576.webp"),
                         description = Description(
@@ -158,10 +149,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "امنیت در تلفن هوشمند",
-                        url = Url("https://nooshdaroo.ir/smartphone-security/")
-                    ),
+                    "امنیت در تلفن هوشمند",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d92187b1081-1024x576.webp"),
                         description = Description(
@@ -172,10 +160,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "خبر و تحلیل",
-                        url = Url("https://nooshdaroo.ir/news-opinion/")
-                    ),
+                    "خبر و تحلیل",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d8c73a852e8-1024x576.webp"),
                         description = Description(
@@ -186,10 +171,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "مبانی امنیت",
-                        url = Url("https://nooshdaroo.ir/cybersecurity-basics/")
-                    ),
+                    "مبانی امنیت",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d75b1d512fc-1024x576.webp"),
                         description = Description(
@@ -200,10 +182,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "حریم خصوصی",
-                        url = Url("https://nooshdaroo.ir/privacy-protection/")
-                    ),
+                    "حریم خصوصی",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d0dc3dbe019-1024x576.webp"),
                         description = Description(
@@ -214,10 +193,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "خبر و تحلیل",
-                        url = Url("https://nooshdaroo.ir/news-opinion/")
-                    ),
+                    "خبر و تحلیل",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d68635763e3-1024x576.webp"),
                         description = Description(
@@ -228,10 +204,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "سواد دیجیتال",
-                        url = Url("https://nooshdaroo.ir/digital-literacy/")
-                    ),
+                    "سواد دیجیتال",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d3fac56689d-1024x576.webp"),
                         description = Description(
@@ -242,10 +215,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "خبر و تحلیل",
-                        url = Url("https://nooshdaroo.ir/news-opinion/")
-                    ),
+                    "خبر و تحلیل",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d350ee31650-1024x576.webp"),
                         description = Description(
@@ -256,10 +226,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "بحران و شرایط اضطراری",
-                        url = Url("https://nooshdaroo.ir/crisis-and-war/")
-                    ),
+                    "بحران و شرایط اضطراری",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d55074dba6e-1024x576.webp"),
                         description = Description(
@@ -270,10 +237,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "خبر و تحلیل",
-                        url = Url("https://nooshdaroo.ir/news-opinion/")
-                    ),
+                    "خبر و تحلیل",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d258577b258-1024x576.webp"),
                         description = Description(
@@ -284,10 +248,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "حریم خصوصی",
-                        url = Url("https://nooshdaroo.ir/privacy-protection/")
-                    ),
+                    "حریم خصوصی",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d117890f221-1024x576.webp"),
                         description = Description(
@@ -518,9 +479,7 @@ class NooshdarooWebScrapperImplTest {
 
             containsExactly(
                 Content(
-                    Category(
-                        title = "خبر و تحلیل",
-                    ),
+                    "خبر و تحلیل",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69da04ce3c3ec.webp"),
                         description = Description(
@@ -531,9 +490,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "خبر و تحلیل",
-                    ),
+                    "خبر و تحلیل",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69da12866fd3b.webp"),
                         description = Description(
@@ -544,9 +501,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "خبر و تحلیل",
-                    ),
+                    "خبر و تحلیل",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d92bf5b6773.webp"),
                         description = Description(
@@ -620,9 +575,7 @@ class NooshdarooWebScrapperImplTest {
 
             containsExactly(
                 Content(
-                    Category(
-                        title = "بحران و شرایط اضطراری",
-                    ),
+                    "بحران و شرایط اضطراری",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/01/nooshdaroo_6964e0c11c4ef.webp"),
                         description = Description(
@@ -633,9 +586,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "بحران و شرایط اضطراری",
-                    ),
+                    "بحران و شرایط اضطراری",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/02/nooshdaroo_699aeed4d2032.webp"),
                         description = Description(
@@ -646,9 +597,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "بحران و شرایط اضطراری",
-                    ),
+                    "بحران و شرایط اضطراری",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2025/06/nooshdaroo_685101130d31c.webp"),
                         description = Description(
@@ -659,9 +608,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "بحران و شرایط اضطراری",
-                    ),
+                    "بحران و شرایط اضطراری",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/03/nooshdaroo_69b9bdabed901.webp"),
                         description = Description(
@@ -672,9 +619,7 @@ class NooshdarooWebScrapperImplTest {
                     )
                 ),
                 Content(
-                    Category(
-                        title = "بحران و شرایط اضطراری",
-                    ),
+                    "بحران و شرایط اضطراری",
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/03/nooshdaroo_69aeeac7477d5.webp"),
                         description = Description(

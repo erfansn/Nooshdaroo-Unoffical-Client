@@ -65,12 +65,12 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
 
                             article {
                                 Content(
-                                    category = div {
+                                    categoryTitle = div {
                                         withClass = "image-wrap"
                                         div {
                                             a {
                                                 findFirst {
-                                                    Category(ownText, Url(attribute("href")))
+                                                    ownText
                                                 }
                                             }
                                         }
@@ -130,15 +130,12 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                     findAll {
                                         map {
                                             Content(
-                                                category = it.div {
+                                                categoryTitle = it.div {
                                                     withClass = "image-wrap"
                                                     div {
                                                         a {
                                                             findFirst {
-                                                                Category(
-                                                                    ownText,
-                                                                    Url(attribute("href"))
-                                                                )
+                                                                ownText
                                                             }
                                                         }
                                                     }
@@ -416,7 +413,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                     withClass = "image-wrap"
 
                                                     val category = findFirst("div.tax-label") {
-                                                        Category(title = ownText)
+                                                        ownText
                                                     }
                                                     val imageUrl = findFirst("div.image a img") {
                                                         runCatching {
@@ -455,7 +452,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                 }
 
                                                 Content(
-                                                    category = category,
+                                                    categoryTitle = category,
                                                     article = Article(
                                                         imageUrl = imageUrl,
                                                         description = description,
@@ -598,7 +595,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                     withClass = "image-wrap"
 
                                                     val category = findFirst("div.tax-label") {
-                                                        Category(title = ownText)
+                                                        ownText
                                                     }
                                                     val imageUrl = findFirst("div.image a img") {
                                                         runCatching {
@@ -637,7 +634,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                 }
 
                                                 Content(
-                                                    category = category,
+                                                    categoryTitle = category,
                                                     article = Article(
                                                         imageUrl = imageUrl,
                                                         description = description,

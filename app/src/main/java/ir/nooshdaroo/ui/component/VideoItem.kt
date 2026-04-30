@@ -54,7 +54,7 @@ fun VideoItem(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = modifier.clickable(onClick = onClick)
+        modifier = modifier
     ) {
         CompositionLocalProvider(LocalContentColor provides Color.White) {
             BasicText(
@@ -79,9 +79,9 @@ fun VideoItem(
                         append(stringResource(R.string.educational_video))
                     }
                 },
-                style = LocalTextStyle.current,
+                style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier
-                    .background(MaterialTheme.colorScheme.tertiary)
+                    .background(Color(0xFF895c3e))
                     .padding(4.dp)
                     .padding(horizontal = 2.dp)
             )
@@ -89,9 +89,9 @@ fun VideoItem(
         Text(
             description.title,
             style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
         )
-        Box {
+        Box(modifier = Modifier.clickable(onClick = onClick)) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .placeholder(Color.DarkGray.toArgb().toDrawable())

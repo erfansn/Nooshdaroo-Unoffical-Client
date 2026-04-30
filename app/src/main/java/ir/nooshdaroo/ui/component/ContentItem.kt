@@ -2,11 +2,13 @@ package ir.nooshdaroo.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -14,8 +16,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,13 +29,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toDrawable
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import ir.nooshdaroo.R
 import ir.nooshdaroo.Url
 import ir.nooshdaroo.ui.PreviewNooshdarooTheme
 
@@ -70,9 +78,10 @@ fun CategoryText(
 ) {
     Text(
         text = text,
-        color = MaterialTheme.colorScheme.onTertiary,
+        style = MaterialTheme.typography.labelMedium,
+        color = Color(0xFFfbf8f3),
         modifier = modifier
-            .background(MaterialTheme.colorScheme.tertiary)
+            .background(color = Color(0xFF895c3e))
             .padding(4.dp),
     )
 }
@@ -210,3 +219,48 @@ private fun ContentItemPreview_4() {
     }
 }
 
+@Preview
+@Composable
+private fun ContentItemPreview_5() {
+    PreviewNooshdarooTheme {
+        ContentItem(
+            image = ContentImage(Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69e7b81ef3b25.webp"),),
+            onClick = { },
+            imageLabelContent = {
+                CategoryText("بحران و شرایط اضطراری", modifier = Modifier.align(Alignment.TopStart))
+            },
+            descriptionContent = {
+                Spacer(Modifier.height(12.dp))
+                Text(
+                    text = "خبری عجیب، ترسناک و نویدبخش!",
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = "زنگ خطر برای کاربران ایرانی: تبدیل خودکار توکن DAI به USDS در صرافی\u200Cها آغاز شد",
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    lineHeight = 42.sp
+                )
+
+                Spacer(Modifier.height(16.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.studying)
+                    )
+                    Icon(
+                        painterResource(R.drawable.top_left_arrow),
+                        contentDescription = null,
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
+            },
+            modifier = Modifier.height(IntrinsicSize.Min)
+        )
+    }
+}

@@ -82,11 +82,11 @@ fun ShortVideoItem(
                         append(stringResource(R.string.short_video))
                     }
                 },
-                style = LocalTextStyle.current,
+                style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier
-                    .padding(top = 24.dp, start = 12.dp)
+                    .padding(top = 16.dp, start = 8.dp)
                     .align(Alignment.TopStart)
-                    .background(MaterialTheme.colorScheme.tertiary)
+                    .background(Color(0xFF895c3e))
                     .padding(4.dp)
                     .padding(horizontal = 2.dp)
             )
@@ -96,6 +96,7 @@ fun ShortVideoItem(
             Text(
                 text = it,
                 color = Color.White,
+                style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier
                     .padding(16.dp)
                     .align(Alignment.BottomEnd)
@@ -108,7 +109,7 @@ fun ShortVideoItem(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .align(Alignment.Center)
-                .background(Color.Black.copy(alpha = 0.2f), CircleShape)
+                .background(Color.Black.copy(alpha = 0.3f), CircleShape)
                 .size(44.dp)
         ) {
             Icon(

@@ -43,7 +43,7 @@ import ir.nooshdaroo.R
 import ir.nooshdaroo.Url
 import ir.nooshdaroo.ui.PreviewNooshdarooTheme
 
-data class ContentImage(val url: Url, val aspectRatio: Float = 2/1f)
+data class ContentImage(val url: Url, val aspectRatio: Float = 3/2f)
 
 @Composable
 fun ContentItem(
@@ -79,6 +79,7 @@ fun CategoryText(
     Text(
         text = text,
         style = MaterialTheme.typography.labelMedium,
+        fontWeight = FontWeight.SemiBold,
         color = Color(0xFFfbf8f3),
         modifier = modifier
             .background(color = Color(0xFF895c3e))

@@ -7,8 +7,9 @@ import androidx.compose.material3.Typography
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -16,6 +17,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontVariation.Settings
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.LayoutDirection
+import ir.nooshdaroo.AppUriHandler
 import ir.nooshdaroo.R
 
 private val LightColorScheme = lightColorScheme()
@@ -65,12 +67,14 @@ private val Shapes = Shapes(
 
 @Composable
 fun NooshdarooTheme(content: @Composable () -> Unit) {
-    MaterialTheme(
-        content = content,
-        typography = Typography,
-        shapes = Shapes,
-        colorScheme = LightColorScheme
-    )
+    CompositionLocalProvider(LocalUriHandler provides AppUriHandler(LocalContext.current)) {
+        MaterialTheme(
+            content = content,
+            typography = Typography,
+            shapes = Shapes,
+            colorScheme = LightColorScheme
+        )
+    }
 }
 
 @Composable

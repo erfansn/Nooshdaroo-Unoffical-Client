@@ -56,7 +56,7 @@ fun ShortVideoItem(
                 .build(),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.aspectRatio(1 / 2f)
+            modifier = Modifier.aspectRatio(1.1f / 2f)
         )
 
         CompositionLocalProvider(LocalContentColor provides Color.White) {

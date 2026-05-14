@@ -50,9 +50,12 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -76,6 +79,7 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -152,13 +156,17 @@ private fun MainScreen(
 ) {
     when (uiState) {
         is MainUiState.Loaded -> {
+            val snackbarState = remember { SnackbarHostState() }
             Scaffold(
                 topBar = {
-                    MainTopBar()
+                    MainTopBar(snackbarState, isOffline = uiState.isOffline)
                 },
                 modifier = modifier,
                 containerColor = Color.White,
-                contentWindowInsets = WindowInsets.safeDrawing.exclude(WindowInsets.systemBars)
+                contentWindowInsets = WindowInsets.safeDrawing.exclude(WindowInsets.systemBars),
+                snackbarHost = {
+                    SnackbarHost(snackbarState)
+                }
             ) {
                 Column(
                     modifier = Modifier
@@ -248,7 +256,10 @@ private fun MainScreen(
                 }
             }
         }
-        MainUiState.Loading -> { /* no-op */ }
+
+        MainUiState.Loading -> { /* no-op */
+        }
+
         MainUiState.NetworkError -> {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -283,24 +294,46 @@ private fun MainScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun MainTopBar(modifier: Modifier = Modifier) {
+private fun MainTopBar(
+    snackbarHostState: SnackbarHostState,
+    isOffline: Boolean,
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier
             .statusBarsPadding()
             .fillMaxWidth()
             .height(60.dp)
-            .background(Color.White),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+            .background(Color.White)
+            .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            painterResource(R.drawable.logo),
-            contentDescription = null,
+        Row(
             modifier = Modifier
-                .wrapContentSize()
-                .padding(top = 12.dp, start = 16.dp)
-        )
-        Text(stringResource(R.string.app_title), style = MaterialTheme.typography.titleLarge)
+                .weight(1f),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painterResource(R.drawable.logo),
+                contentDescription = null,
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(top = 12.dp)
+            )
+            Text(stringResource(R.string.app_title), style = MaterialTheme.typography.titleLarge)
+        }
+        if (isOffline) {
+            val scope = rememberCoroutineScope()
+            val resource = LocalResources.current
+            IconButton(onClick = {
+                scope.launch {
+                    snackbarHostState.showSnackbar(resource.getString(R.string.offline_content_message))
+                }
+            }) {
+                Icon(painterResource(R.drawable.ic_offline), contentDescription = null)
+            }
+        }
     }
 }
 
@@ -1016,9 +1049,11 @@ private fun PopularContentsSection(
             ) {
                 contents.forEach {
                     key(it.article.articleUrl) {
-                        Column(modifier = Modifier
-                            .fillMaxRowHeight()
-                            .width(240.dp)) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxRowHeight()
+                                .width(240.dp)
+                        ) {
                             Row(
                                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                                 verticalAlignment = Alignment.CenterVertically,
@@ -1744,7 +1779,8 @@ class MainScreenPreviewParams : PreviewParameterProvider<MainUiState> {
                         )
                     )
                 ),
-                isRefreshingContent = false
+                isRefreshingContent = false,
+                isOffline = true
             ),
             MainUiState.NetworkError
         )
@@ -1768,7 +1804,8 @@ private fun MainScreenPreview(
 @Composable
 private fun MainTopBarPreview() {
     PreviewNooshdarooTheme {
-        MainTopBar()
+        val snackbarHostState = remember { SnackbarHostState() }
+        MainTopBar(snackbarHostState, isOffline = true)
     }
 }
 

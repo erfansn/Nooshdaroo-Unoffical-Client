@@ -11,7 +11,8 @@ sealed interface MainUiState {
     data object NetworkError : MainUiState
     data class Loaded(
         val mainContent: MainContent,
-        val isRefreshingContent: Boolean
+        val isRefreshingContent: Boolean,
+        val isOffline: Boolean,
     ) : MainUiState
 }
 

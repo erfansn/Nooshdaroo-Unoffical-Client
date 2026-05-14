@@ -5,8 +5,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import ir.nooshdaroo.data.NooshdarooWebFetcherImpl
 import ir.nooshdaroo.data.NooshdarooWebScrapperImpl
+import ir.nooshdaroo.network.ConnectivityNetworkMonitor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -19,7 +22,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _uiState = MutableStateFlow<MainUiState>(MainUiState.Loading)
 
-    val uiState = _uiState.onStart {
+    private val networkMonitor = ConnectivityNetworkMonitor(application)
+
+    val uiState = _uiState.combine(networkMonitor.isOnline) { state, isOnline ->
+        when (state) {
+            is MainUiState.Loaded -> state.copy(isOffline = !isOnline)
+            else -> state
+        }
+    }.onStart {
         initialLoad()
     }.stateIn(
         scope = viewModelScope,
@@ -79,7 +89,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }.getOrNull()
 
                 if (mainContent != null) {
-                    MainUiState.Loaded(mainContent = mainContent, isRefreshingContent = false)
+                    MainUiState.Loaded(
+                        mainContent = mainContent,
+                        isRefreshingContent = false,
+                        isOffline = false
+                    )
                 } else {
                     MainUiState.NetworkError
                 }

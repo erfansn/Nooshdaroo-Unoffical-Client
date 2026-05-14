@@ -23,5 +23,6 @@
     <string name="popular_contents">مطالب پرنگاه</string>
     <string name="nooshdaroo">NooshDaroo</string>
     <string name="no_internet_message">نوشدارو قبل از اتصال به اینترنت!</string>
+    <string name="offline_content_message">محتوای بدون اینترنت</string>
     <string name="try_again">تلاش دوباره</string>
 </resources>

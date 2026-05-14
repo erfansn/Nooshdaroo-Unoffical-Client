@@ -32,7 +32,7 @@ class NooshdarooWebScrapperImplTest {
     fun setUp() {
         mockWebServer.enqueue(MockResponse().setBody(mainPage).setResponseCode(200))
 
-        nooshdarooWebScrapper = NooshdarooWebScrapperImpl(mockWebServer.url("/").toUrl())
+        nooshdarooWebScrapper = NooshdarooWebScrapperImpl(mockWebServer.url("").toUrl())
     }
 
     @Test
@@ -273,57 +273,57 @@ class NooshdarooWebScrapperImplTest {
                 ShortVideo(
                     duration = "۰۰:۵۸",
                     posterUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d74ae42a21e.webp"),
-                    videoUrl = Url("https://ganjoor.nooshdaroo.ir/videos/294e3c21-058b-4294-aa16-24aa35a9aa7e/master.m3u8")
+                    videoUrl = Url("https://nooshdaroo.ir/short-videos/crisis-and-war/scam-alert-non-existent-sim-cards/")
                 ),
                 ShortVideo(
                     duration = "۰۱:۳۶",
                     posterUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/03/nooshdaroo_69b96177d4ed9.webp"),
-                    videoUrl = Url("https://ganjoor.nooshdaroo.ir/videos/261616f5-2df0-4ec8-b231-cfa07f541055/master.m3u8")
+                    videoUrl = Url("https://nooshdaroo.ir/short-videos/crypto-security/crypto-frauds-while-disconnecting-internet/")
                 ),
                 ShortVideo(
                     duration = "۰۱:۵۵",
                     posterUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/03/nooshdaroo_69afc29ccdae1.webp"),
-                    videoUrl = Url("https://ganjoor.nooshdaroo.ir/videos/36b87710-3b4d-4c41-a8eb-8f0c91d41a2e/master.m3u8")
+                    videoUrl = Url("https://nooshdaroo.ir/short-videos/crisis-and-war/protection-digital-currency-war/")
                 ),
                 ShortVideo(
                     duration = "۰۱:۳۶",
                     posterUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/02/nooshdaroo_69a2ad9beb197.webp"),
-                    videoUrl = Url("https://ganjoor.nooshdaroo.ir/videos/e2cfd799-3bba-49c0-818b-f9b93d13c8f1/master.m3u8")
+                    videoUrl = Url("https://nooshdaroo.ir/short-videos/crisis-and-war/protect-identity-in-crisis/")
                 ),
                 ShortVideo(
                     duration = "۰۲:۴۵",
                     posterUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/02/nooshdaroo_6996b6176b052.webp"),
-                    videoUrl = Url("https://ganjoor.nooshdaroo.ir/videos/d28cfa0e-18b4-4826-ad80-f2b94d96a1cf/master.m3u8")
+                    videoUrl = Url("https://nooshdaroo.ir/short-videos/crisis-and-war/power-water-outage-essential-needs/")
                 ),
                 ShortVideo(
                     duration = "۰۱:۰۱",
                     posterUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/03/nooshdaroo_69a53e982c869.webp"),
-                    videoUrl = Url("https://ganjoor.nooshdaroo.ir/videos/a9cfe7b3-e4b9-43da-bfa0-e718ee230e7b/master.m3u8")
+                    videoUrl = Url("https://nooshdaroo.ir/short-videos/crisis-and-war/%d8%aa%d9%86%d8%b8%db%8c%d9%85%d8%a7%d8%aa-%d9%85%d9%87%d9%85-%d8%b3%db%8c%d8%b1%db%8c-%da%a9%d9%87-%d8%b4%d8%a7%db%8c%d8%af-%db%8c%da%a9-%d8%b1%d9%88%d8%b2-%d8%ac%d8%a7%d9%86%d8%aa%d8%a7%d9%86-%d8%b1/")
                 ),
                 ShortVideo(
                     duration = "۰۲:۲۳",
                     posterUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/02/nooshdaroo_6996b0d48e5a2.webp"),
-                    videoUrl = Url("https://ganjoor.nooshdaroo.ir/videos/f43502c0-7de2-4dcb-9b5d-ba6cbce41918/master.m3u8")
+                    videoUrl = Url("https://nooshdaroo.ir/short-videos/digital-literacy/fix-site-loading-digital-privacy/")
                 ),
                 ShortVideo(
                     duration = "۰۱:۲۷",
                     posterUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/02/nooshdaroo_698b22df629c3.webp"),
-                    videoUrl = Url("https://ganjoor.nooshdaroo.ir/videos/0a31d59b-7c59-40b9-8138-b02fc741a3a5/master.m3u8")
+                    videoUrl = Url("https://nooshdaroo.ir/short-videos/digital-literacy/dns-security-guide/")
                 ),
                 ShortVideo(
                     duration = "۰۱:۱۲",
                     posterUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/01/nooshdaroo_6972370b71e18-576x1024.webp"),
-                    videoUrl = Url("https://ganjoor.nooshdaroo.ir/videos/483f7bdf-c8d8-4355-b695-e12e8333b0ec/master.m3u8")
+                    videoUrl = Url("https://nooshdaroo.ir/short-videos/security-tools/what-is-nexcloud/")
                 ),
                 ShortVideo(
                     duration = "۰۰:۵۷",
                     posterUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/01/nooshdaroo_69690bea5b429.webp"),
-                    videoUrl = Url("https://ganjoor.nooshdaroo.ir/videos/da8af596-cd27-456e-9d58-2f772964cbe5/master.m3u8")
+                    videoUrl = Url("https://nooshdaroo.ir/short-videos/smartphone-security/malware-or-international-internet/")
                 ),
                 ShortVideo(
                     duration = "null",
                     posterUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2025/06/nooshdaroo_68550a04e843f.webp"),
-                    videoUrl = Url("https://ganjoor.nooshdaroo.ir/videos/75022b8d-e3dc-4700-ab86-54332e9ed501/master.m3u8")
+                    videoUrl = Url("https://nooshdaroo.ir/short-videos/digital-literacy/super-power-saving-in-iphone/")
                 )
             )
         }
@@ -340,72 +340,72 @@ class NooshdarooWebScrapperImplTest {
                 Article(
                     imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d96ff009fad-768x432.webp"),
                     description = Description(
-                        title = "میان‌برهای پرهزینه …",
-                        subhead = "آشنایی با «هوش مصنوعی سایه»: وقتی کارمندان قوانین امنیتی را دور می‌زنند!"
+                        subhead = "میان‌برهای پرهزینه …",
+                        title = "آشنایی با «هوش مصنوعی سایه»: وقتی کارمندان قوانین امنیتی را دور می‌زنند!"
                     ),
                     articleUrl = Url("https://nooshdaroo.ir/legal-guides/shadow-ai-security-risks/")
                 ),
                 Article(
                     imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d3fac56689d-768x432.webp"),
                     description = Description(
-                        title = "بحران انرژی در راه است؟",
-                        subhead = "چرا گوگل، متا و مایکروسافت در حال ساخت نیروگاه‌های گازی هستند؟"
+                        subhead = "بحران انرژی در راه است؟",
+                        title = "چرا گوگل، متا و مایکروسافت در حال ساخت نیروگاه‌های گازی هستند؟"
                     ),
                     articleUrl = Url("https://nooshdaroo.ir/digital-literacy/ai-data-centers-natural-gas/")
                 ),
                 Article(
                     imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d350ee31650-768x432.webp"),
                     description = Description(
-                        title = "روی تاریک و پیش‌بینی‌نشده‌ی هوش مصنوعی",
-                        subhead = "وقتی هوش مصنوعی برای محافظت از هم‌نوع خود، در برابر انسان‌ می‌ایستد!"
+                        subhead = "روی تاریک و پیش‌بینی‌نشده‌ی هوش مصنوعی",
+                        title = "وقتی هوش مصنوعی برای محافظت از هم‌نوع خود، در برابر انسان‌ می‌ایستد!"
                     ),
                     articleUrl = Url("https://nooshdaroo.ir/news-opinion/ai-defying-human-commands/")
                 ),
                 Article(
                     imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/04/nooshdaroo_69d0dc98b0cbe-768x432.webp"),
                     description = Description(
-                        title = "انقلاب جدید گوگل در روزهای خاموشی اینترنت ایران!",
-                        subhead = "گوگل Gemma 4 را معرفی کرد؛ مدل‌های متن‌باز رایگان با امکان اجرای آفلاین"
+                        subhead = "انقلاب جدید گوگل در روزهای خاموشی اینترنت ایران!",
+                        title = "گوگل Gemma 4 را معرفی کرد؛ مدل‌های متن‌باز رایگان با امکان اجرای آفلاین"
                     ),
                     articleUrl = Url("https://nooshdaroo.ir/news-opinion/google-gemma4/")
                 ),
                 Article(
                     imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/03/nooshdaroo_69c9102153f3d-768x432.webp"),
                     description = Description(
-                        title = "«توجه! توجه! توجه!»",
-                        subhead = "درباره ایستگاه رادیویی مرموزی که همزمان با جنگ شروع به پخش کرد چه می‌دانیم؟"
+                        subhead = "«توجه! توجه! توجه!»",
+                        title = "درباره ایستگاه رادیویی مرموزی که همزمان با جنگ شروع به پخش کرد چه می‌دانیم؟"
                     ),
                     articleUrl = Url("https://nooshdaroo.ir/digital-literacy/numbers-station-during-iran-usa-war/")
                 ),
                 Article(
                     imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/03/nooshdaroo_69c46c12443ce-768x432.webp"),
                     description = Description(
-                        title = "کرک‌هایی خطرناک‌تر از همیشه",
-                        subhead = "توصیه به گیمرها: به‌هیچ‌وجه سراغ نسل جدید بازی‌های کرکی (Hypervisor) نروید"
+                        subhead = "کرک‌هایی خطرناک‌تر از همیشه",
+                        title = "توصیه به گیمرها: به‌هیچ‌وجه سراغ نسل جدید بازی‌های کرکی (Hypervisor) نروید"
                     ),
                     articleUrl = Url("https://nooshdaroo.ir/parental-control/hypervisor-cracks-dangers/")
                 ),
                 Article(
                     imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/03/nooshdaroo_69c3c8fd8b65b-768x432.avif"),
                     description = Description(
-                        title = "شبکه‌ای که می‌بیند و حس می‌کند …",
-                        subhead = "آشنایی با شبکه 6G: نسل بعدی اینترنت موبایل"
+                        subhead = "شبکه‌ای که می‌بیند و حس می‌کند …",
+                        title = "آشنایی با شبکه 6G: نسل بعدی اینترنت موبایل"
                     ),
                     articleUrl = Url("https://nooshdaroo.ir/digital-literacy/6g-explained/")
                 ),
                 Article(
                     imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/03/nooshdaroo_69c3c0655dfc2-768x432.webp"),
                     description = Description(
-                        title = "مشکلِ قابل ‌پیش‌بینی بودن!",
-                        subhead = "چرا پسوردهای ساده خیلی راحت فاش می‌شوند؟"
+                        subhead = "مشکلِ قابل ‌پیش‌بینی بودن!",
+                        title = "چرا پسوردهای ساده خیلی راحت فاش می‌شوند؟"
                     ),
                     articleUrl = Url("https://nooshdaroo.ir/digital-literacy/why-simple-passwords-get-hacked-easily/")
                 ),
                 Article(
                     imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/03/nooshdaroo_69c3a24690722-768x432.webp"),
                     description = Description(
-                        title = "اتفاقی آنقدر عادی که دیگر برایمان عجیب نیست!",
-                        subhead = "معجزه در کف اقیانوس: اطلاعاتِ اینترنتی چطور در کسری از ثانیه جابه‌جا می‌شوند؟"
+                        subhead = "اتفاقی آنقدر عادی که دیگر برایمان عجیب نیست!",
+                        title = "معجزه در کف اقیانوس: اطلاعاتِ اینترنتی چطور در کسری از ثانیه جابه‌جا می‌شوند؟"
                     ),
                     articleUrl = Url("https://nooshdaroo.ir/digital-literacy/how-submarine-cables-work/")
                 )

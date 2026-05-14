@@ -39,7 +39,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                             withClass = "c-nav-block__side-menu"
                             findFirst {
                                 eachLink.entries.map { (text, url) ->
-                                    Category(text, Url(nooshdarooUrl.toString().dropLast(1) + url))
+                                    Category(text, Url(nooshdarooUrl.toExternalForm().dropLast(1) + url))
                                 }
                             }
                         }
@@ -228,7 +228,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                 it.article {
                                     a {
                                         val (videoUrl, posterUrl) = findFirst {
-                                            Url(attribute("data-video-url")) to Url(attribute("data-video-poster"))
+                                            Url(attribute("href")) to Url(attribute("data-video-poster"))
                                         }
 
                                         val duration = div {
@@ -299,7 +299,7 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                 findFirst { ownText }
                                             }
 
-                                            Pair(Description(subhead, title), articleUrl)
+                                            Pair(Description(subhead = subhead, title = title), articleUrl)
                                         }
                                     }
 

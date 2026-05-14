@@ -8,7 +8,7 @@ import ir.nooshdaroo.data.model.Description
 import ir.nooshdaroo.data.model.ShortVideo
 import ir.nooshdaroo.data.model.Video
 import it.skrape.core.htmlDocument
-import it.skrape.fetcher.AsyncFetcher
+import it.skrape.fetcher.BrowserFetcher
 import it.skrape.fetcher.response
 import it.skrape.fetcher.skrape
 import it.skrape.selects.html5.a
@@ -26,10 +26,10 @@ import java.net.URL
 class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebScrapper {
 
     override suspend fun extractContentCategoriesWithPath(): List<Category> {
-        return skrape(AsyncFetcher) {
+        return skrape(BrowserFetcher) {
             request {
                 url = nooshdarooUrl.toString()
-                timeout = 5_000
+                timeout = 60_000
             }
             response {
                 htmlDocument {
@@ -50,10 +50,10 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
     }
 
     override suspend fun extractFeaturedContents(): List<Content> {
-        return skrape(AsyncFetcher) {
+        return skrape(BrowserFetcher) {
             request {
                 url = nooshdarooUrl.toString()
-                timeout = 5_000
+                timeout = 60_000
             }
             response {
                 htmlDocument {
@@ -213,10 +213,10 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
     }
 
     override suspend fun extractShortVideos(): List<ShortVideo> {
-        return skrape(AsyncFetcher) {
+        return skrape(BrowserFetcher) {
             request {
                 url = nooshdarooUrl.toString()
-                timeout = 5_000
+                timeout = 60_000
             }
             response {
                 htmlDocument {
@@ -257,10 +257,10 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
     }
 
     override suspend fun extractLatestContentInDigitalLiteracy(): List<Article> {
-        return skrape(AsyncFetcher) {
+        return skrape(BrowserFetcher) {
             request {
                 url = nooshdarooUrl.toString()
-                timeout = 5_000
+                timeout = 60_000
             }
             response {
                 htmlDocument {
@@ -318,10 +318,10 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
     }
 
     override suspend fun extractLatestVideos(): List<Video> {
-        return skrape(AsyncFetcher) {
+        return skrape(BrowserFetcher) {
             request {
                 url = nooshdarooUrl.toString()
-                timeout = 5_000
+                timeout = 60_000
             }
             response {
                 htmlDocument {
@@ -390,10 +390,10 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
     }
 
     override suspend fun extractLatestContent(): List<Content> {
-        return skrape(AsyncFetcher) {
+        return skrape(BrowserFetcher) {
             request {
                 url = nooshdarooUrl.toString()
-                timeout = 5_000
+                timeout = 60_000
             }
             response {
                 htmlDocument {
@@ -473,10 +473,10 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
     }
 
     override suspend fun extractDailyNote(): String {
-        return skrape(AsyncFetcher) {
+        return skrape(BrowserFetcher) {
             request {
                 url = nooshdarooUrl.toString()
-                timeout = 5_000
+                timeout = 60_000
             }
             response {
                 htmlDocument {
@@ -495,10 +495,10 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
     }
 
     override suspend fun extractLatestInParentalControl(): List<Article> {
-        return skrape(AsyncFetcher) {
+        return skrape(BrowserFetcher) {
             request {
                 url = nooshdarooUrl.toString()
-                timeout = 5_000
+                timeout = 60_000
             }
             response {
                 htmlDocument {
@@ -572,10 +572,10 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
     }
 
     override suspend fun extractPopularContents(): List<Content> {
-        return skrape(AsyncFetcher) {
+        return skrape(BrowserFetcher) {
             request {
                 url = nooshdarooUrl.toString()
-                timeout = 5_000
+                timeout = 60_000
             }
             response {
                 htmlDocument {
@@ -624,13 +624,19 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
                                                             }
                                                         }
                                                     }
+                                                    val excerpt = div {
+                                                        withClass = "excerpt"
+
+                                                        p {
+                                                            findFirst { ownText }
+                                                        }
+                                                    }
                                                     val readingTime = div {
                                                         withClass = "reading-time"
                                                         findFirst { ownText }
                                                     }
 
-                                                    Triple(articleUrl,
-                                                        Description(title), readingTime)
+                                                    Triple(articleUrl, Description(title, subhead = excerpt), readingTime)
                                                 }
 
                                                 Content(
@@ -655,10 +661,10 @@ class NooshdarooWebScrapperImpl(private val nooshdarooUrl: URL) : NooshdarooWebS
     }
 
     override suspend fun extractShouldKnowInEmergencyStateArticles(): List<Article> {
-        return skrape(AsyncFetcher) {
+        return skrape(BrowserFetcher) {
             request {
                 url = nooshdarooUrl.toString()
-                timeout = 5_000
+                timeout = 60_000
             }
             response {
                 htmlDocument {

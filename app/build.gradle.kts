@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
 
@@ -15,7 +14,8 @@ android {
     defaultConfig {
         applicationId = "ir.nooshdaroo"
         minSdk = 24
-        targetSdk = 36
+        // In AGP 9 it uses compile sdk version
+        // targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -29,11 +29,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
     }
 
     packaging {
@@ -52,11 +49,16 @@ android {
 
     buildFeatures {
         compose = true
+        resValues = true
     }
 
     androidResources {
         generateLocaleConfig = true
     }
+}
+
+kotlin {
+    jvmToolchain(21)
 }
 
 dependencies {
@@ -72,13 +74,15 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.windowsize)
     implementation(libs.androidx.compose.material.icon.core)
+    implementation(libs.androidx.compose.ui.tooling.preview)
 
-    implementation(libs.skrapeit)
+    implementation(libs.skrapeit) {
+        exclude("it.skrape", "skrapeit-async-fetcher")
+    }
     implementation(libs.coroutines)
     implementation(libs.coil)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.tooling.preview)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     testImplementation(libs.robolectric)

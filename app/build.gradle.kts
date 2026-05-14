@@ -81,6 +81,7 @@ dependencies {
     }
     implementation(libs.coroutines)
     implementation(libs.coil)
+    implementation(libs.okhttp)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)

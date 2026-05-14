@@ -6,15 +6,24 @@ import ir.nooshdaroo.data.model.Content
 import ir.nooshdaroo.data.model.ShortVideo
 import ir.nooshdaroo.data.model.Video
 
-data class MainUiState(
-    val categories: List<Category>,
-    val featuredContents: List<Content>,
-    val latestContents: List<Content>,
-    val latestShortVideos: List<ShortVideo>,
-    val latestVideos: List<Video>,
-    val latestDigitalLiteracyArticles: List<Article>,
-    val dailyNote: String,
-    val latestParentalControl: List<Article>,
-    val emergencyArticles: List<Article>,
-    val popularContents: List<Content>
+sealed interface MainUiState {
+    data object Loading : MainUiState
+    data object NetworkError : MainUiState
+    data class Loaded(
+        val mainContent: MainContent,
+        val isRefreshingContent: Boolean
+    ) : MainUiState
+}
+
+data class MainContent(
+    val categories: List<Category> = emptyList(),
+    val featuredContents: List<Content> = emptyList(),
+    val latestContents: List<Content> = emptyList(),
+    val latestShortVideos: List<ShortVideo> = emptyList(),
+    val latestVideos: List<Video> = emptyList(),
+    val latestDigitalLiteracyArticles: List<Article> = emptyList(),
+    val dailyNote: String = "",
+    val latestParentalControl: List<Article> = emptyList(),
+    val emergencyArticles: List<Article> = emptyList(),
+    val popularContents: List<Content> = emptyList()
 )

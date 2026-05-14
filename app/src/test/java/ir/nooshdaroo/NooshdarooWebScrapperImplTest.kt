@@ -21,18 +21,11 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class NooshdarooWebScrapperImplTest {
 
-    @get:Rule
-    val mockWebServer = MockWebServer()
-
-    private val mainPage = javaClass.getResourceAsStream("/index.html")!!.reader().use { it.readText() }
-
     private lateinit var nooshdarooWebScrapper: NooshdarooWebScrapper
 
     @Before
     fun setUp() {
-        mockWebServer.enqueue(MockResponse().setBody(mainPage).setResponseCode(200))
-
-        nooshdarooWebScrapper = NooshdarooWebScrapperImpl(mockWebServer.url("").toUrl())
+        nooshdarooWebScrapper = NooshdarooWebScrapperImpl(FakeNooshdarooWebFetcher())
     }
 
     @Test
@@ -570,6 +563,7 @@ class NooshdarooWebScrapperImplTest {
     fun mainPage_extractingPopularContents_returnsCorrectly() = runTest {
         val result = nooshdarooWebScrapper.extractPopularContents()
 
+        println(result.joinToString(separator = "\n") { """"${it.article.description.subhead.toString()}"""" })
         assertThat(result).apply {
             hasSize(5)
 
@@ -579,7 +573,8 @@ class NooshdarooWebScrapperImplTest {
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/01/nooshdaroo_6964e0c11c4ef.webp"),
                         description = Description(
-                            title = "لینک دسترسی به برخی سایت‌‌ها برای دوران قطعی اینترنت"
+                            title = "لینک دسترسی به برخی سایت‌‌ها برای دوران قطعی اینترنت",
+                            subhead = "در شرایطی که کل اینترنت از دسترس خارج شده‌، متاسفانه لازم است لیستی از سایت‌های ضروری را دم دست داشته باشیم …"
                         ),
                         readingTime = "زمان مطالعه ۵ دقیقه",
                         articleUrl = Url("https://nooshdaroo.ir/crisis-and-war/access-list/")
@@ -590,7 +585,8 @@ class NooshdarooWebScrapperImplTest {
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/02/nooshdaroo_699aeed4d2032.webp"),
                         description = Description(
-                            title = "راهنمای نگهداری گوشت در بحران و بی‌برقی"
+                            title = "راهنمای نگهداری گوشت در بحران و بی‌برقی",
+                            subhead = "وقتی شرایط بحرانی است و برق برای مدتی طولانی قطع می‌شود، فریزر کارایی‌‌اش را از دست می‌دهد و مرغ و گوشت شما به سرعت فاسد می‌شود …"
                         ),
                         readingTime = "زمان مطالعه ۱۰ دقیقه",
                         articleUrl = Url("https://nooshdaroo.ir/crisis-and-war/meat-preservation-in-crisis/")
@@ -601,7 +597,8 @@ class NooshdarooWebScrapperImplTest {
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2025/06/nooshdaroo_685101130d31c.webp"),
                         description = Description(
-                            title = "۱۰ نکته برای مصرف بنزین کمتر هنگام رانندگی"
+                            title = "۱۰ نکته برای مصرف بنزین کمتر هنگام رانندگی",
+                            subhead = "با رعایت برخی نکات ساده‌ی رانندگی، می‌توان تأثیر قابل‌توجهی بر مصرف سوخت و سلامت فنی خودرو گذاشت. اینجا به ده مورد از مهم‌ترین آنها می‌پردازیم."
                         ),
                         readingTime = "زمان مطالعه ۳ دقیقه",
                         articleUrl = Url("https://nooshdaroo.ir/crisis-and-war/10-fuel-efficient-driving-techniques/")
@@ -612,7 +609,8 @@ class NooshdarooWebScrapperImplTest {
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/03/nooshdaroo_69b9bdabed901.webp"),
                         description = Description(
-                            title = "بعد از شکستن شیشه‌ها بر اثر موج انفجار چه کنیم؟"
+                            title = "بعد از شکستن شیشه‌ها بر اثر موج انفجار چه کنیم؟",
+                            subhead = "حتی اگر به پنجره چسب زده باشیم، انفجار می‌تواند آنقدر مهیب باشد که شیشه‌ها هزار تکه شوند. در این موقعیت چه کنیم؟"
                         ),
                         readingTime = "زمان مطالعه ۴ دقیقه",
                         articleUrl = Url("https://nooshdaroo.ir/crisis-and-war/what-to-do-after-blast/")
@@ -623,7 +621,8 @@ class NooshdarooWebScrapperImplTest {
                     Article(
                         imageUrl = Url("https://nooshdaroo.ir/wp-content/uploads/2026/03/nooshdaroo_69aeeac7477d5.webp"),
                         description = Description(
-                            title = "کاهش خطر پرتاب شیشه در لحظه انفجار: چه کنیم و چه نکنیم؟"
+                            title = "کاهش خطر پرتاب شیشه در لحظه انفجار: چه کنیم و چه نکنیم؟",
+                            subhead = "هنگام انفجار، بیشترین خطر برای ساکنان خانه‌ها نه فرو ریختن ساختمان بلکه پرتاب خرده‌شیشه‌ها و کنده شدن درها بر اثر موج انفجار است."
                         ),
                         readingTime = "زمان مطالعه ۵ دقیقه",
                         articleUrl = Url("https://nooshdaroo.ir/crisis-and-war/window-safety-during-explosion/")

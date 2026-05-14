@@ -56,6 +56,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -86,6 +88,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ir.nooshdaroo.data.model.Article
 import ir.nooshdaroo.data.model.Category
@@ -113,9 +116,16 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen().setKeepOnScreenCondition {
+            viewModel.uiState.value == MainUiState.Loading
+        }
+        val systemBarStyle = SystemBarStyle.light(
+            android.graphics.Color.TRANSPARENT,
+            android.graphics.Color.TRANSPARENT
+        )
         enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.light(android.graphics.Color.TRANSPARENT, android.graphics.Color.TRANSPARENT),
-            navigationBarStyle = SystemBarStyle.light(android.graphics.Color.TRANSPARENT, android.graphics.Color.TRANSPARENT)
+            statusBarStyle = systemBarStyle,
+            navigationBarStyle = systemBarStyle
         )
         super.onCreate(savedInstanceState)
         val desiredLocale = LocaleListCompat.create(Locale.forLanguageTag("fa-IR"))
@@ -150,15 +160,28 @@ private fun MainScreen(
                 containerColor = Color.White,
                 contentWindowInsets = WindowInsets.safeDrawing.exclude(WindowInsets.systemBars)
             ) {
-                PullToRefreshBox(
-                    isRefreshing = uiState.isRefreshingContent,
-                    onRefresh = onContentRefresh,
+                Column(
                     modifier = Modifier
                         .padding(it)
                         .consumeWindowInsets(it)
                 ) {
-                    Column {
-                        CategoriesRow(uiState.mainContent.categories)
+                    CategoriesRow(uiState.mainContent.categories)
+                    HorizontalDivider()
+                    val state = rememberPullToRefreshState()
+                    PullToRefreshBox(
+                        isRefreshing = uiState.isRefreshingContent,
+                        onRefresh = onContentRefresh,
+                        state = state,
+                        indicator = {
+                            Indicator(
+                                modifier = Modifier.align(Alignment.TopCenter),
+                                isRefreshing = uiState.isRefreshingContent,
+                                state = state,
+                                containerColor = Color(0xFFF4F1EC),
+                                color = Color(0xFF895c3e)
+                            )
+                        }
+                    ) {
                         val contentPadding = PaddingValues(horizontal = 16.dp)
                         LazyColumn {
                             item {

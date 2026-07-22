@@ -54,4 +54,4 @@ jobs:
         uses: softprops/action-gh-release@v3.0.2
         with:
           files: app-release.apk
-          tag_name: 1.0
+          tag_name: "1.0"
